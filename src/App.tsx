@@ -1,35 +1,16 @@
-import type React from "react";
-
-interface ICardProps {
-  title: string;
-  children: React.ReactNode;
-}
-const Card = (props: ICardProps) => {
-  return (
-    <div
-      style={{
-        border: "1px solid black",
-      }}
-    >
-      <span>Title: {props.title}</span>
-
-      <div>{props.children}</div>
-
-      <div>Footer</div>
-    </div>
-  );
-};
+import { useState } from "react";
 
 export function App() {
+  const [count, setCount] = useState(0);
+  const [hide, setHide] = useState(false);
+
   return (
     <div>
-      Hello World
-      <Card title="Teste">Teste</Card>
-      <Card title="Teste">Teste 1</Card>
-      <Card title="Teste">Teste 2</Card>
-      <Card title="Teste">Teste 3</Card>
-      <Card title="Teste">Teste 4</Card>
-      <Card title="Teste">Teste 5</Card>
+      {hide && <p>Teste 1</p>}
+      {!hide && <p>Teste 2</p>}
+      {hide ? <p>Teste 1</p> : <p>Teste 2</p>}
+      <button onClick={() => setCount(count + 1)}>{count}</button>
+      <button onClick={() => setHide(!hide)}>Toggle</button>
     </div>
   );
 }
