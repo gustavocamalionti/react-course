@@ -4,12 +4,6 @@ import { TodoItem } from './components/TodoItem';
 import { List } from './components/List';
 import { TodoAPI, type ITodo } from './shared/services/api/TodoAPI';
 
-// TodoAPI.create({ label: 'Fazer café', complete: false });
-
-// TodoAPI.create({ label: 'Fazer janta', complete: false });
-
-// TodoAPI.create({ label: 'Fazer almoço', complete: false });
-
 export function App() {
   const [list, setList] = useState<ITodo[]>([]);
 
