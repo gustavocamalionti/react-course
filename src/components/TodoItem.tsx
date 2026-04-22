@@ -12,7 +12,7 @@ export const TodoItem = ({ id, label, complete, onComplete, onDelete }: ITodoIte
     onComplete(id);
   };
 
-  const handleDelete = () => {
+  const handleRemove = () => {
     onDelete(id);
   };
 
@@ -21,7 +21,7 @@ export const TodoItem = ({ id, label, complete, onComplete, onDelete }: ITodoIte
       {label}
       {complete ? 'Concluído' : ''}
       <button onClick={handleComplete}>Concluir</button>
-      <button onClick={handleDelete}>Remover</button>
+      <button onClick={handleRemove}>Remover</button>
     </li>
   );
 };

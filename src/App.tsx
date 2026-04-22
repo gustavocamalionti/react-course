@@ -30,7 +30,7 @@ export function App() {
     ]);
   };
 
-  const handleDelete = (id: string) => {
+  const handleRemove = (id: string) => {
     setList([
       ...list.filter((item) => {
         return item.id !== id;
@@ -49,7 +49,7 @@ export function App() {
             id={listItem.id}
             label={listItem.label}
             complete={listItem.complete}
-            onDelete={handleDelete}
+            onDelete={handleRemove}
             onComplete={handleComplete}
           />
         ))}
