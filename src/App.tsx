@@ -4,16 +4,6 @@ import { TodoItem } from './components/TodoItem';
 import { List } from './components/List';
 import { TodoAPI } from './shared/services/api/TodoAPI';
 
-TodoAPI.getAll().then((data) => console.log('1', data));
-TodoAPI.create({ label: 'Fazer almoço', complete: true });
-TodoAPI.create({ label: 'Fazer lanche', complete: true });
-TodoAPI.getAll().then((data) => console.log('2', data));
-TodoAPI.updateById('1', { label: 'Fazer janta', complete: true });
-TodoAPI.getAll().then((data) => console.log('3', data));
-
-TodoAPI.deleteById('1');
-TodoAPI.getAll().then((data) => console.log('4', data));
-
 export function App() {
   const [list, setList] = useState([
     { id: '1', label: 'Fazer cafée', complete: false },
