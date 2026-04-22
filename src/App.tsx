@@ -4,13 +4,15 @@ import { TodoItem } from './components/TodoItem';
 import { List } from './components/List';
 import { TodoAPI } from './shared/services/api/TodoAPI';
 
-TodoAPI.getAll().then((data) => console.log('APP', data));
-TodoAPI.create().then((data) => console.log('TODO CRIADO', data));
-TodoAPI.find('1').then((data) => console.log('TODO BUSCADO', data));
-TodoAPI.update('1').then((data) => console.log('TODO ALTERADO', data));
-TodoAPI.find('1').then((data) => console.log('TODO BUSCADO', data));
-TodoAPI.delete('1').then((data) => console.log('TODO DELETADO', data));
-TodoAPI.getAll().then((data) => console.log('APP', data));
+TodoAPI.getAll().then((data) => console.log('1', data));
+TodoAPI.create({ label: 'Fazer almoço', complete: true });
+TodoAPI.create({ label: 'Fazer lanche', complete: true });
+TodoAPI.getAll().then((data) => console.log('2', data));
+TodoAPI.updateById('1', { label: 'Fazer janta', complete: true });
+TodoAPI.getAll().then((data) => console.log('3', data));
+
+TodoAPI.deleteById('1');
+TodoAPI.getAll().then((data) => console.log('4', data));
 
 export function App() {
   const [list, setList] = useState([

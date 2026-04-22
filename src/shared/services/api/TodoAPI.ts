@@ -2,37 +2,41 @@ import axios from 'axios';
 
 const axiosInstance = axios.create();
 
+interface ITodo {
+  id: string;
+  label: string;
+  complete: boolean;
+}
+
+interface ITodoWithoutId {
+  label: string;
+  complete: boolean;
+}
+
 export const TodoAPI = {
   async getAll() {
     const response = await axiosInstance.get('/api/todos');
-    return response.data.todos;
+    return response.data.todos as ITodo[];
   },
 
-  async create() {
-    const response = await axiosInstance.post('/api/todos', {
-      id: 1,
-      label: 'Teste Axios',
-      complete: true,
-    });
-    return response.data;
+  async create(data: ITodoWithoutId) {
+    const response = await axiosInstance.post('/api/todos', data);
+    return response.data as ITodo[];
   },
 
-  async find(id: string) {
+  async findById(id: string) {
     const response = await axiosInstance.get('/api/todos/' + id);
-    return response.data;
+    return response.data as ITodo[];
   },
 
-  async update(id: string) {
-    const response = await axiosInstance.put('/api/todos/' + id, {
-      label: 'Teste Nome Alterado',
-      complete: true,
-    });
-    return response.data;
+  async updateById(id: string, data: Partial<ITodoWithoutId>) {
+    await axiosInstance.put('/api/todos/' + id, data);
+    return;
   },
 
-  async delete(id: String) {
-    const response = await axiosInstance.delete('/api/todos/' + id);
+  async deleteById(id: String) {
+    await axiosInstance.delete('/api/todos/' + id);
 
-    return response.data;
+    return;
   },
 };
