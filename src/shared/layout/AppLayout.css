@@ -1,14 +1,95 @@
+/* RESET BÁSICO */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* BASE */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f8fafc; /* fallback */
+  color: #0f172a;
+}
+
+/* IMAGENS E MEDIA */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* FORM ELEMENTS */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* LINKS */
+a {
+  color: inherit;
+}
+
 .layout-base {
-  padding: 8px;
-  background-color: #ececec;
-}
-
-.layout-header {
-  padding: 8px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   display: flex;
-  gap: 8px;
+  flex-direction: column;
 }
 
-.layout-divider {
-  border-color: rgba(0, 0, 0, 0.116);
+/* HEADER */
+.layout-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background-color: #4f46e5; /* azul principal */
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
+/* LINKS */
+.layout-header a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.layout-header a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* CONTEÚDO */
+/* .layout-content {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+} */
