@@ -2,6 +2,15 @@ import { useState } from 'react';
 import { InputAdd } from './components/InputAdd';
 import { TodoItem } from './components/TodoItem';
 import { List } from './components/List';
+import { TodoAPI } from './shared/services/api/TodoAPI';
+
+TodoAPI.getAll().then((data) => console.log('APP', data));
+TodoAPI.create().then((data) => console.log('TODO CRIADO', data));
+TodoAPI.find('1').then((data) => console.log('TODO BUSCADO', data));
+TodoAPI.update('1').then((data) => console.log('TODO ALTERADO', data));
+TodoAPI.find('1').then((data) => console.log('TODO BUSCADO', data));
+TodoAPI.delete('1').then((data) => console.log('TODO DELETADO', data));
+TodoAPI.getAll().then((data) => console.log('APP', data));
 
 export function App() {
   const [list, setList] = useState([
