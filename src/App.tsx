@@ -21,9 +21,22 @@ export function App() {
     ]);
   };
 
-  const handleComplete = () => {};
+  const handleComplete = (id: string) => {
+    setList([
+      ...list.map((item) => ({
+        ...item,
+        complete: item.id === id ? true : item.complete,
+      })),
+    ]);
+  };
 
-  const handleDelete = () => {};
+  const handleDelete = (id: string) => {
+    setList([
+      ...list.filter((item) => {
+        return item.id !== id;
+      }),
+    ]);
+  };
 
   return (
     <div>

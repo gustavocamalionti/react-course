@@ -2,17 +2,17 @@ interface ITodoItemProps {
   id: string;
   label: string;
   complete: boolean;
-  onComplete(): void;
-  onDelete(): void;
+  onComplete(id: string): void;
+  onDelete(id: string): void;
 }
 
 export const TodoItem = ({ id, label, complete, onComplete, onDelete }: ITodoItemProps) => {
   const handleComplete = () => {
-    onComplete();
+    onComplete(id);
   };
 
   const handleDelete = () => {
-    onDelete();
+    onDelete(id);
   };
 
   return (
