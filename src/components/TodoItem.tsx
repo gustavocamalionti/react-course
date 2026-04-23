@@ -1,3 +1,5 @@
+import StylesTodoItem from './TodoItem.module.css';
+
 interface ITodoItemProps {
   id: string;
   label: string;
@@ -17,11 +19,24 @@ export const TodoItem = ({ id, label, complete, onComplete, onDelete }: ITodoIte
   };
 
   return (
-    <li>
-      {label}
-      {complete ? 'Concluído' : ''}
-      <button onClick={handleComplete}>Concluir</button>
-      <button onClick={handleRemove}>Remover</button>
+    <li className={StylesTodoItem.ComponentItem}>
+      <div
+        className={`${StylesTodoItem.ComponentLabel} ${complete ? StylesTodoItem.ComponentCompleteText : ''}`}
+      >
+        {label}
+      </div>
+
+      <div className={StylesTodoItem.ComponentContainerButton}>
+        {!complete && (
+          <button className={`${StylesTodoItem.ComponentButton}`} onClick={handleComplete}>
+            Concluir
+          </button>
+        )}
+
+        <button className={StylesTodoItem.ComponentButton} onClick={handleRemove}>
+          Remover
+        </button>
+      </div>
     </li>
   );
 };
