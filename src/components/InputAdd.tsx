@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import StylesInputAdd from './InputAdd.module.css';
 interface IInputAddProps {
   onAdd(value: string): void;
 }
@@ -13,10 +13,16 @@ export const InputAdd = (props: IInputAddProps) => {
   };
 
   return (
-    <div>
-      <input value={value} onChange={(e) => setValue(e.target.value)} />
+    <div className={StylesInputAdd.ComponentContainer}>
+      <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        className={StylesInputAdd.ComponentInput}
+      />
 
-      <button onClick={handleAdd}>Adicionar</button>
+      <button onClick={handleAdd} className={StylesInputAdd.ComponentButton}>
+        Adicionar
+      </button>
     </div>
   );
 };

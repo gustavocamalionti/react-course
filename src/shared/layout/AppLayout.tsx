@@ -1,4 +1,7 @@
 import type React from 'react';
+import '../styles/variables.css';
+import '../styles/base.css';
+import '../styles/components.css';
 import './AppLayout.css';
 
 export const AppLayout = ({ children }: React.PropsWithChildren) => {

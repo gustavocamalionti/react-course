@@ -1,0 +1,13 @@
+.ComponentContainer {
+  padding: 24px 0px 24px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.ComponentInput {
+  width: 100%;
+}
+
+.ComponentButton {
+  margin-left: 10px;
+}

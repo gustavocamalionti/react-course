@@ -1,0 +1,92 @@
+/* =========================
+   FORM ELEMENTS
+========================= */
+input,
+textarea,
+select {
+  font-size: var(--text-sm);
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* hover sutil */
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--border-hover);
+}
+
+/* foco */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+/* Placeholder */
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+}
+
+/* Label */
+label {
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+/* Textarea */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Select */
+select {
+  cursor: pointer;
+  appearance: none;
+}
+
+/* =========================
+   BUTTON
+========================= */
+button {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: var(--primary-hover);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   LINKS
+========================= */
+a {
+  color: inherit;
+  text-decoration: none;
+}
