@@ -1,9 +1,9 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 interface IAuthContextProps {
   email: string | undefined;
   accessToken: string | undefined;
-
+  detailedUser: string | undefined;
   login(email: string, password: string): void;
   logout(): void;
 }
@@ -23,8 +23,13 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
     setEmail(undefined);
     setAccessToken(undefined);
   }, []);
+
+  const detailedUser = useMemo(() => {
+    return `O email do usuário é ${email}`;
+  }, [email]);
+
   return (
-    <AuthContext.Provider value={{ login, logout, accessToken, email }}>
+    <AuthContext.Provider value={{ login, logout, accessToken, email, detailedUser }}>
       {children}
     </AuthContext.Provider>
   );
