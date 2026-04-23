@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 
 interface IAuthContextProps {
   email: string | undefined;
@@ -13,16 +13,16 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
   const [email, setEmail] = useState<string>();
   const [accessToken, setAccessToken] = useState<string>();
 
-  const login = (email: string, password: string) => {
-    // chamar o backend para conseguir m token de autenticação
+  const login = useCallback((email: string, password: string) => {
+    // chamar o backend para conseguir o token de autenticação
     setEmail(email);
     setAccessToken(crypto.randomUUID());
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setEmail(undefined);
     setAccessToken(undefined);
-  };
+  }, []);
   return (
     <AuthContext.Provider value={{ login, logout, accessToken, email }}>
       {children}
