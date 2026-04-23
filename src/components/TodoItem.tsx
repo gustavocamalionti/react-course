@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import StylesTodoItem from './TodoItem.module.css';
 
 interface ITodoItemProps {
@@ -20,11 +21,12 @@ export const TodoItem = ({ id, label, complete, onComplete, onDelete }: ITodoIte
 
   return (
     <li className={StylesTodoItem.ComponentItem}>
-      <div
-        className={`${StylesTodoItem.ComponentLabel} ${complete ? StylesTodoItem.ComponentCompleteText : ''}`}
+      <Link
+        to={`/detalhe/${id}`}
+        className={`${StylesTodoItem.ComponentSpan} ${complete ? StylesTodoItem.ComponentCompleteText : ''}`}
       >
         {label}
-      </div>
+      </Link>
 
       <div className={StylesTodoItem.ComponentContainerButton}>
         {!complete && (
