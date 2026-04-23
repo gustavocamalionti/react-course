@@ -9,7 +9,6 @@ createServer({
     if (todosAsString == null) return;
 
     const todos = JSON.parse(todosAsString);
-    console.log(todos);
 
     todos.models.forEach((todo: {}) => {
       server.schema.create('todos', todo);
