@@ -1,0 +1,68 @@
+.PageContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #eef2ff 0%, #b9c4cfa2 100%);
+}
+
+.PageCard {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.PageTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  color: #0f172a;
+}
+
+.PageFormGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.PageLabel {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.PageInput {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #d1d5db;
+  outline: none;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.PageInput::placeholder {
+  color: #94a3b8;
+}
+
+.PageInput:focus {
+  border-color: #6366f1;
+  box-shadow: var(--shadow-md);
+}
+
+.PageButton:hover {
+  background: #4338ca;
+}
+
+.PageButton:active {
+  transform: scale(0.98);
+}
+
+.PageButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
