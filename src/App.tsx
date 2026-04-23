@@ -4,7 +4,7 @@ import './shared/styles/variables.css';
 import './shared/styles/base.css';
 import './shared/styles/components.css';
 import { About } from './pages/About';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router';
 
 export function App() {
   return (
@@ -13,6 +13,7 @@ export function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sobre" element={<About />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </AppLayout>
     </BrowserRouter>
