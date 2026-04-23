@@ -9,7 +9,7 @@ import { Detail } from './pages/Detail';
 import { Login } from './pages/public/Login';
 
 export function App() {
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   return (
     <BrowserRouter>
       {isAuthenticated && (

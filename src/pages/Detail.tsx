@@ -5,19 +5,23 @@ import { useEffect, useState } from 'react';
 import { TodoAPI, type ITodo } from '../shared/services/api/TodoAPI';
 
 export const Detail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [searchParams] = useSearchParams();
 
-  const [todo, setTodo] = useState<ITodo[]>([]);
+  const [todo, setTodo] = useState<ITodo>();
 
   useEffect(() => {
+    if (!id) return;
+
     TodoAPI.findById(id).then((data) => {
       setTodo(data);
     });
   }, []);
   return (
     <PageLayout title="Detalhes">
-      Detail{id} {searchParams.get('filter')}
+      {id} - {searchParams.get('filter')}
+      {todo?.label} <br />
+      {todo?.complete ? 'Concluído' : 'Não Concluído'} <br />
     </PageLayout>
   );
 };
