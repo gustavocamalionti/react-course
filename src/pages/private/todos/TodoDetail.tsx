@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod/v4';
-
 import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
 import { TodoAPI, type ITodoWithoutId } from '../../../shared/services/api/TodoAPI';
 import TodoDetailStyles from './TodoDetail.module.css';
