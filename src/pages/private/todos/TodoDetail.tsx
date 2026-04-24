@@ -3,8 +3,8 @@ import { useNavigate, useParams } from 'react-router';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod/v4';
-import { parse, isValid } from 'date-fns';
-
+import { parseISO, isValid, format } from 'date-fns';
+import { formatInTimeZone, fromZonedTime } from 'date-fns-tz';
 import { TodoAPI, type ITodoWithoutId } from '../../../shared/services/api/TodoAPI';
 import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
 import TodoDetailStyles from './TodoDetail.module.css';
@@ -19,12 +19,19 @@ const todoSchema = z
     completeAt: z
       .string()
       .optional()
-      .refine((date) => {
-        if (!date) return true;
+      .refine((datetimeLocal) => {
+        if (!datetimeLocal) return true;
 
-        const parsedDate = parse(date, 'yyyy-MM-dd', new Date());
+        const parsedDate = parseISO(datetimeLocal, 'yyyy-MM-ddTHH:mm', new Date());
         return isValid(parsedDate);
-      }, 'A data não está correta'),
+      }, 'A data não está correta')
+      .transform((datetimeLocal) => {
+        if (!datetimeLocal) throw new Error('A data não está correta');
+
+        const parsedDatetime = parseISO(datetimeLocal);
+        const utcDatetime = fromZonedTime(parsedDatetime, 'America/Sao_Paulo');
+        return utcDatetime.toISOString();
+      }),
   })
   .refine(
     (data) => {
@@ -65,7 +72,12 @@ export const TodoDetail = () => {
 
     setIsLoading(true);
     TodoAPI.findById(id).then((data) => {
-      reset(data);
+      reset({
+        ...data,
+        completeAt: data.completeAt
+          ? formatInTimeZone(data.completeAt, 'America/Sao_Paulo', "yyyy-MM-dd'T'HH:mm")
+          : undefined,
+      });
       setIsLoading(false);
     });
   }, [id]);
@@ -151,7 +163,7 @@ export const TodoDetail = () => {
               Data de Finalização
             </label>
             <input
-              type="date"
+              type="datetime-local"
               className={TodoDetailStyles.FormInput}
               {...register('completeAt')}
               disabled={isSubmitting || isLoading}
