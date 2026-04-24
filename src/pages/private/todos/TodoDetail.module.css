@@ -1,0 +1,54 @@
+.Form {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container de cada campo */
+.FormLabelContainer {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Label mais forte */
+.FormLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text);
+}
+
+/* Inputs normais */
+.FormInput {
+  /* você já tem estilo global, aqui só refinamos */
+}
+
+/* Checkbox especial */
+.FormInput[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Alinhamento do checkbox + label */
+.FormLabelContainer:has(input[type='checkbox']) {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Texto de ajuda */
+.FormHelpText {
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+/* Botão */
+.FormButton {
+  margin-top: 10px;
+  width: 100px;
+}
