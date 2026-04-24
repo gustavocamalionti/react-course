@@ -7,6 +7,7 @@ export const AppLayout = ({ children }: React.PropsWithChildren) => {
     <div className="layout-base">
       <header className="layout-header">
         <NavLink to={'/'}>Página Inicial</NavLink>
+        <NavLink to={'/todos'}>Tarefas</NavLink>
         <NavLink to={'/sobre'}>Sobre</NavLink>
       </header>
 

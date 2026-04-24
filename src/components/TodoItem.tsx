@@ -22,7 +22,7 @@ export const TodoItem = ({ id, label, complete, onComplete, onDelete }: ITodoIte
   return (
     <li className={StylesTodoItem.ComponentItem}>
       <Link
-        to={`/detalhe/${id}`}
+        to={`/todos/detalhe/${id}`}
         className={`${StylesTodoItem.ComponentSpan} ${complete ? StylesTodoItem.ComponentCompleteText : ''}`}
       >
         {label}

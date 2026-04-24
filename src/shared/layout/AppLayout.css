@@ -50,3 +50,8 @@
   box-shadow: var(--shadow-md);
   padding: 20px;
 }
+
+.layout-header a.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}

@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 
-import { TodoAPI, type ITodo } from '../shared/services/api/TodoAPI';
-import { InputAdd } from '../components/InputAdd';
-import { List } from '../components/List';
-import { TodoItem } from '../components/TodoItem';
-import { PageLayout } from '../shared/layout/page-layout/PageLayout';
+import { TodoAPI, type ITodo } from '../../../shared/services/api/TodoAPI';
+import { List } from '../../../components/List';
+import { TodoItem } from '../../../components/TodoItem';
+import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
+import HomeStyles from './Todo.module.css';
 
-export const Home = () => {
+export const Todo = () => {
+  const navigate = useNavigate();
   const [list, setList] = useState<ITodo[]>([]);
 
   useEffect(() => {
     TodoAPI.getAll().then((data) => setList(data));
   }, []);
 
-  const handleAdd = (value: string) => {
-    TodoAPI.create({ label: value, complete: false }).then((data) => {
-      setList([...list, data]);
-    });
+  const handleAdd = () => {
+    navigate('/todos/detalhe/adicionar');
   };
 
   const handleComplete = (id: string) => {
@@ -41,8 +41,12 @@ export const Home = () => {
   };
 
   return (
-    <PageLayout title="Página Inicial">
-      <InputAdd onAdd={handleAdd} />
+    <PageLayout title="Tarefas">
+      <div className={HomeStyles.ButtonContainer}>
+        <Link to="/todos/detalhe/adicionar" className={HomeStyles.ComponentButton}>
+          Adicionar
+        </Link>
+      </div>
 
       <List>
         {list.map((listItem) => (
