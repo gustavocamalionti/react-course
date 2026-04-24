@@ -7,12 +7,14 @@ export interface ITodo {
   label: string;
   description: string;
   complete: boolean;
+  completeAt: string;
 }
 
 export interface ITodoWithoutId {
   label: string;
   description: string;
   complete: boolean;
+  completeAt: string;
 }
 
 export const TodoAPI = {

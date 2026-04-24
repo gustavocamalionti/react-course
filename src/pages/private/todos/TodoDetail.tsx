@@ -3,15 +3,36 @@ import { useNavigate, useParams } from 'react-router';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod/v4';
-import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
+import { parse, isValid } from 'date-fns';
+
 import { TodoAPI, type ITodoWithoutId } from '../../../shared/services/api/TodoAPI';
+import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
 import TodoDetailStyles from './TodoDetail.module.css';
 
-const todoSchema = z.object({
-  complete: z.boolean(),
-  label: z.string().min(3, 'Deve ter pelo menos 3 caracteres'),
-  description: z.string().min(3, 'Deve ter pelo menos 3 caracteres'),
-});
+const todoSchema = z
+  .object({
+    complete: z.boolean(),
+    label: z.string().min(3, 'Deve ter pelo menos 3 caracteres'),
+    description: z.string().min(3, 'Deve ter pelo menos 3 caracteres').optional(),
+
+    // yyyy-mm-dd
+    completeAt: z
+      .string()
+      .optional()
+      .refine((date) => {
+        if (!date) return true;
+
+        const parsedDate = parse(date, 'yyyy-MM-dd', new Date());
+        return isValid(parsedDate);
+      }, 'A data não está correta'),
+  })
+  .refine(
+    (data) => {
+      if (data.complete && !data.completeAt) return false;
+      return true;
+    },
+    { path: ['completeAt'], error: 'A data precisa ser informada' },
+  );
 
 export const TodoDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +43,7 @@ export const TodoDetail = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { isSubmitting, errors },
   } = useForm<ITodoWithoutId>({
     resolver: zodResolver(todoSchema),
@@ -29,8 +51,11 @@ export const TodoDetail = () => {
       label: '',
       description: '',
       complete: false,
+      completeAt: '',
     },
   });
+
+  const complete = watch('complete');
 
   useEffect(() => {
     if (!id || id === 'adicionar') {
@@ -49,18 +74,21 @@ export const TodoDetail = () => {
     label,
     description,
     complete,
+    completeAt,
   }) => {
     if (!id || id === 'adicionar') {
       await TodoAPI.create({
         label,
         description,
         complete,
+        completeAt,
       });
     } else {
       await TodoAPI.updateById(id, {
         label,
         description,
         complete,
+        completeAt,
       });
     }
 
@@ -117,6 +145,26 @@ export const TodoDetail = () => {
             <span className={TodoDetailStyles.FormHelpText}>Status da tarefa</span>
           )}
         </div>
+        {complete && (
+          <div className={TodoDetailStyles.FormLabelContainer}>
+            <label className={TodoDetailStyles.FormLabel} htmlFor="completeAt">
+              Data de Finalização
+            </label>
+            <input
+              type="date"
+              className={TodoDetailStyles.FormInput}
+              {...register('completeAt')}
+              disabled={isSubmitting || isLoading}
+            />
+            {errors.completeAt?.message ? (
+              <span className={TodoDetailStyles.FormErrorMessage}>{errors.completeAt.message}</span>
+            ) : (
+              <span className={TodoDetailStyles.FormHelpText}>
+                Data em que o item foi finalizado
+              </span>
+            )}
+          </div>
+        )}
         <button
           type="submit"
           className={TodoDetailStyles.FormButton}
