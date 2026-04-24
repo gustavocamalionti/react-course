@@ -52,3 +52,9 @@
   margin-top: 10px;
   width: 100px;
 }
+
+.FormErrorMessage {
+  font-size: 13px;
+  color: #ff0000;
+  opacity: 0.85;
+}
