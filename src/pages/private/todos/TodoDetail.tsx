@@ -6,7 +6,6 @@ import { z } from 'zod/v4';
 import { parseISO, isValid } from 'date-fns';
 import { TodoAPI, type ITodoWithoutId } from '../../../shared/services/api/TodoAPI';
 import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
-import TodoDetailStyles from './TodoDetail.module.css';
 
 const todoSchema = z
   .object({
@@ -106,79 +105,81 @@ export const TodoDetail = () => {
 
   return (
     <PageLayout title={id === 'adicionar' ? 'Nova Tarefa' : 'Editar Tarefa'}>
-      <form className={TodoDetailStyles.Form} onSubmit={handleSubmit(handleOnSubmit)}>
-        <div className={TodoDetailStyles.FormLabelContainer}>
-          <label className={TodoDetailStyles.FormLabel} htmlFor="label">
+      <form onSubmit={handleSubmit(handleOnSubmit)} className="card flex flex-col">
+        {/* Título */}
+        <div className="flex flex-col gap-1.5 mb-4">
+          <label className="label" htmlFor="label">
             Título
           </label>
-          <input
-            className={TodoDetailStyles.FormInput}
-            {...register('label')}
-            disabled={isSubmitting || isLoading}
-          />
+
+          <input className="input" {...register('label')} disabled={isSubmitting || isLoading} />
+
           {errors.label?.message ? (
-            <span className={TodoDetailStyles.FormErrorMessage}>{errors.label.message}</span>
+            <span className="text-xs text-red-500">{errors.label.message}</span>
           ) : (
-            <span className={TodoDetailStyles.FormHelpText}>Título identificador do item</span>
+            <span className="text-xs text-[var(--color-muted)]">Título identificador do item</span>
           )}
         </div>
-        <div className={TodoDetailStyles.FormLabelContainer}>
-          <label className={TodoDetailStyles.FormLabel} htmlFor="description">
+
+        {/* Descrição */}
+        <div className="flex flex-col gap-1.5 mb-4">
+          <label className="label" htmlFor="description">
             Descrição
           </label>
-          <input
-            className={TodoDetailStyles.FormInput}
+
+          <textarea
+            className="textarea"
             {...register('description')}
             disabled={isSubmitting || isLoading}
           />
 
           {errors.description?.message ? (
-            <span className={TodoDetailStyles.FormErrorMessage}>{errors.description.message}</span>
+            <span className="text-xs text-red-500">{errors.description.message}</span>
           ) : (
-            <span className={TodoDetailStyles.FormHelpText}>Descreva em mais detalhes</span>
+            <span className="text-xs text-[var(--color-muted)]">Descreva em mais detalhes</span>
           )}
         </div>
-        <div className={TodoDetailStyles.FormLabelContainer}>
-          <label className={TodoDetailStyles.FormLabel} htmlFor="complete">
-            Finalizado
-          </label>
+
+        {/* Checkbox */}
+        <div className="flex items-center gap-2 mb-4">
           <input
             type="checkbox"
-            className={TodoDetailStyles.FormInput}
+            className="w-4 h-4 cursor-pointer"
             {...register('complete')}
             disabled={isSubmitting || isLoading}
           />
-          {errors.complete?.message ? (
-            <span className={TodoDetailStyles.FormErrorMessage}>{errors.complete.message}</span>
-          ) : (
-            <span className={TodoDetailStyles.FormHelpText}>Status da tarefa</span>
-          )}
+
+          <label className="label" htmlFor="complete">
+            Finalizado
+          </label>
         </div>
+
+        {/* Data */}
         {complete && (
-          <div className={TodoDetailStyles.FormLabelContainer}>
-            <label className={TodoDetailStyles.FormLabel} htmlFor="completeAt">
+          <div className="flex flex-col gap-1.5 mb-4">
+            <label className="label" htmlFor="completeAt">
               Data de Finalização
             </label>
+
             <input
               type="datetime-local"
-              className={TodoDetailStyles.FormInput}
+              className="input"
               {...register('completeAt')}
               disabled={isSubmitting || isLoading}
             />
+
             {errors.completeAt?.message ? (
-              <span className={TodoDetailStyles.FormErrorMessage}>{errors.completeAt.message}</span>
+              <span className="text-xs text-red-500">{errors.completeAt.message}</span>
             ) : (
-              <span className={TodoDetailStyles.FormHelpText}>
+              <span className="text-xs text-[var(--color-muted)]">
                 Data em que o item foi finalizado
               </span>
             )}
           </div>
         )}
-        <button
-          type="submit"
-          className={TodoDetailStyles.FormButton}
-          disabled={isSubmitting || isLoading}
-        >
+
+        {/* Botão */}
+        <button type="submit" className="btn mt-2 w-[120px]" disabled={isSubmitting || isLoading}>
           Salvar
         </button>
       </form>

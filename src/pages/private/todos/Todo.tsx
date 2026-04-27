@@ -5,7 +5,6 @@ import { TodoAPI, type ITodo } from '../../../shared/services/api/TodoAPI';
 import { List } from '../../../components/List';
 import { TodoItem } from '../../../components/TodoItem';
 import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
-import HomeStyles from './Todo.module.css';
 
 export const Todo = () => {
   const navigate = useNavigate();
@@ -14,10 +13,6 @@ export const Todo = () => {
   useEffect(() => {
     TodoAPI.getAll().then((data) => setList(data));
   }, []);
-
-  const handleAdd = () => {
-    navigate('/todos/detalhe/adicionar');
-  };
 
   const handleComplete = (id: string) => {
     TodoAPI.updateById(id, { complete: true }).then(() => {
@@ -42,8 +37,8 @@ export const Todo = () => {
 
   return (
     <PageLayout title="Tarefas">
-      <div className={HomeStyles.ButtonContainer}>
-        <Link to="/todos/detalhe/adicionar" className={HomeStyles.ComponentButton}>
+      <div className="flex justify-end items-center mb-2.5 mr-6">
+        <Link to="/todos/detalhe/adicionar" className="btn ml-2.5">
           Adicionar
         </Link>
       </div>

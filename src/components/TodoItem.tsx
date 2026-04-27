@@ -1,5 +1,4 @@
 import { Link } from 'react-router';
-import StylesTodoItem from './TodoItem.module.css';
 
 interface ITodoItemProps {
   id: string;
@@ -20,22 +19,27 @@ export const TodoItem = ({ id, label, complete, onComplete, onDelete }: ITodoIte
   };
 
   return (
-    <li className={StylesTodoItem.ComponentItem}>
+    <li className="mb-4 px-3 py-2 rounded-md flex items-center justify-between gap-4 bg-[rgba(82,121,179,0.16)]">
+      {/* Texto */}
       <Link
         to={`/todos/detalhe/${id}`}
-        className={`${StylesTodoItem.ComponentSpan} ${complete ? StylesTodoItem.ComponentCompleteText : ''}`}
+        className={`flex-1 ${complete ? 'line-through text-[var(--color-muted)]' : ''}`}
       >
         {label}
       </Link>
 
-      <div className={StylesTodoItem.ComponentContainerButton}>
+      {/* Ações */}
+      <div className="flex items-center gap-2">
         {!complete && (
-          <button className={`${StylesTodoItem.ComponentButton}`} onClick={handleComplete}>
+          <button onClick={handleComplete} className="btn !px-3 !py-1.5 text-xs">
             Concluir
           </button>
         )}
 
-        <button className={StylesTodoItem.ComponentButton} onClick={handleRemove}>
+        <button
+          onClick={handleRemove}
+          className="btn !px-3 !py-1.5 text-xs bg-red-500 hover:bg-red-600"
+        >
           Remover
         </button>
       </div>

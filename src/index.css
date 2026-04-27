@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@import './shared/styles/theme.css';
+@import './shared/styles/base.css';
+
+/* components */
+@import './shared/styles/components/button.css';
+@import './shared/styles/components/form.css';
+@import './shared/styles/components/card.css';

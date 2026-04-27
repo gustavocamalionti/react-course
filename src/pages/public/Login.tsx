@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import StylesLogin from './Login.module.css';
 import { useAuthContext } from '../../shared/contexts/AuthContext';
 
 export const Login = () => {
@@ -8,42 +7,50 @@ export const Login = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log('Entrar');
-
     login(email, password);
   };
 
   return (
-    <div className={StylesLogin.PageContainer}>
-      <form className={StylesLogin.PageCard} onSubmit={handleLogin}>
-        <h1 className={StylesLogin.PageTitle}>Login</h1>
-        <div className={StylesLogin.PageFormGroup}>
-          <label className={StylesLogin.PageLabel} htmlFor="email">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-indigo-50 to-slate-300/60">
+      <form
+        onSubmit={handleLogin}
+        className="card w-full max-w-sm flex flex-col gap-4 p-7 rounded-xl"
+      >
+        <h1 className="text-xl font-semibold text-center">Login</h1>
+
+        {/* Email */}
+        <div className="flex flex-col gap-1.5">
+          <label className="label" htmlFor="email">
             Email
           </label>
+
           <input
             id="email"
-            className={StylesLogin.PageInput}
+            className="input"
             type="email"
             placeholder="seu@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className={StylesLogin.PageFormGroup}>
-          <label className={StylesLogin.PageLabel} htmlFor="password">
+
+        {/* Senha */}
+        <div className="flex flex-col gap-1.5">
+          <label className="label" htmlFor="password">
             Senha
           </label>
+
           <input
             id="password"
-            className={StylesLogin.PageInput}
+            className="input"
             type="password"
             placeholder="********"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button className={StylesLogin.PageButton} type="submit">
+
+        <button className="btn mt-2" type="submit">
           Entrar
         </button>
       </form>
