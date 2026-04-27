@@ -4,7 +4,6 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod/v4';
 import { parseISO, isValid } from 'date-fns';
-import { formatInTimeZone, fromZonedTime } from 'date-fns-tz';
 import { TodoAPI, type ITodoWithoutId } from '../../../shared/services/api/TodoAPI';
 import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
 import TodoDetailStyles from './TodoDetail.module.css';
@@ -24,14 +23,7 @@ const todoSchema = z
 
         const parsedDate = parseISO(datetimeLocal);
         return isValid(parsedDate);
-      }, 'A data não está correta')
-      .transform((datetimeLocal) => {
-        if (!datetimeLocal) throw new Error('A data não está correta');
-
-        const parsedDatetime = parseISO(datetimeLocal);
-        const utcDatetime = fromZonedTime(parsedDatetime, 'America/Sao_Paulo');
-        return utcDatetime.toISOString();
-      }),
+      }, 'A data não está correta'),
   })
   .refine(
     (data) => {
@@ -82,12 +74,7 @@ export const TodoDetail = () => {
 
     setIsLoading(true);
     TodoAPI.findById(id).then((data) => {
-      reset({
-        ...data,
-        completeAt: data.completeAt
-          ? formatInTimeZone(data.completeAt, 'America/Sao_Paulo', "yyyy-MM-dd'T'HH:mm")
-          : undefined,
-      });
+      reset(data);
       setIsLoading(false);
     });
   }, [id]);
