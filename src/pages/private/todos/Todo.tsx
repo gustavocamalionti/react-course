@@ -6,6 +6,7 @@ import { List } from '../../../components/List';
 import { TodoItem } from '../../../components/TodoItem';
 import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
 
+import { Button } from '@/components/ui/button';
 export const Todo = () => {
   const navigate = useNavigate();
   const [list, setList] = useState<ITodo[]>([]);
@@ -38,9 +39,11 @@ export const Todo = () => {
   return (
     <PageLayout title="Tarefas">
       <div className="flex justify-end items-center mb-2.5 mr-6">
-        <Link to="/todos/detalhe/adicionar" className="btn ml-2.5">
-          Adicionar
-        </Link>
+        <Button variant="default" asChild>
+          <Link to="/todos/detalhe/adicionar" className="btn ml-2.5">
+            Adicionar
+          </Link>
+        </Button>
       </div>
 
       <List>

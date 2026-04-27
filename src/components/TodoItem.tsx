@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import { Button } from './ui/button';
 
 interface ITodoItemProps {
   id: string;
@@ -21,12 +22,9 @@ export const TodoItem = ({ id, label, complete, onComplete, onDelete }: ITodoIte
   return (
     <li className="mb-4 px-3 py-2 rounded-md flex items-center justify-between gap-4 bg-[rgba(82,121,179,0.16)]">
       {/* Texto */}
-      <Link
-        to={`/todos/detalhe/${id}`}
-        className={`flex-1 ${complete ? 'line-through text-[var(--color-muted)]' : ''}`}
-      >
-        {label}
-      </Link>
+      <Button variant="link" asChild className={`flex text-end ${complete ? 'line-through' : ''}`}>
+        <Link to={`/todos/detalhe/${id}`}>{label}</Link>
+      </Button>
 
       {/* Ações */}
       <div className="flex items-center gap-2">

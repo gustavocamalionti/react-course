@@ -6,12 +6,27 @@ import { z } from 'zod/v4';
 import { parseISO, isValid } from 'date-fns';
 import { TodoAPI, type ITodoWithoutId } from '../../../shared/services/api/TodoAPI';
 import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
-
+import { Label } from '@/components/ui/label';
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 const todoSchema = z
   .object({
     complete: z.boolean(),
     label: z.string().min(3, 'Deve ter pelo menos 3 caracteres'),
-    description: z.string().min(3, 'Deve ter pelo menos 3 caracteres').optional(),
+    description: z
+      .string()
+      .optional()
+      .refine((val) => !val || val.length >= 3, {
+        message: 'Deve ter pelo menos 3 caracteres',
+      }),
 
     // yyyy-mm-dd
     completeAt: z
@@ -107,81 +122,74 @@ export const TodoDetail = () => {
     <PageLayout title={id === 'adicionar' ? 'Nova Tarefa' : 'Editar Tarefa'}>
       <form onSubmit={handleSubmit(handleOnSubmit)} className="card flex flex-col">
         {/* Título */}
-        <div className="flex flex-col gap-1.5 mb-4">
-          <label className="label" htmlFor="label">
-            Título
-          </label>
+        <FieldSet>
+          {/* <FieldLegend>Profile</FieldLegend> */}
+          <FieldGroup>
+            <Field>
+              <FieldLabel htmlFor="label">Título</FieldLabel>
 
-          <input className="input" {...register('label')} disabled={isSubmitting || isLoading} />
+              <Input {...register('label')} disabled={isSubmitting || isLoading} />
 
-          {errors.label?.message ? (
-            <span className="text-xs text-red-500">{errors.label.message}</span>
-          ) : (
-            <span className="text-xs text-[var(--color-muted)]">Título identificador do item</span>
-          )}
-        </div>
+              {errors.label?.message ? (
+                <FieldError>{errors.label.message}</FieldError>
+              ) : (
+                <FieldDescription>Título identificador do item</FieldDescription>
+              )}
+            </Field>
 
-        {/* Descrição */}
-        <div className="flex flex-col gap-1.5 mb-4">
-          <label className="label" htmlFor="description">
-            Descrição
-          </label>
+            {/* Descrição */}
+            <Field>
+              <FieldLabel htmlFor="description">Descrição</FieldLabel>
 
-          <textarea
-            className="textarea"
-            {...register('description')}
-            disabled={isSubmitting || isLoading}
-          />
+              <textarea
+                className="textarea"
+                {...register('description')}
+                disabled={isSubmitting || isLoading}
+              />
 
-          {errors.description?.message ? (
-            <span className="text-xs text-red-500">{errors.description.message}</span>
-          ) : (
-            <span className="text-xs text-[var(--color-muted)]">Descreva em mais detalhes</span>
-          )}
-        </div>
+              {errors.description?.message ? (
+                <FieldError>{errors.description.message}</FieldError>
+              ) : (
+                <FieldDescription>Descreva em mais detalhes</FieldDescription>
+              )}
+            </Field>
 
-        {/* Checkbox */}
-        <div className="flex items-center gap-2 mb-4">
-          <input
-            type="checkbox"
-            className="w-4 h-4 cursor-pointer"
-            {...register('complete')}
-            disabled={isSubmitting || isLoading}
-          />
+            {/* Checkbox */}
+            <Field orientation="horizontal">
+              <Input
+                type="checkbox"
+                className="w-4 h-4 cursor-pointer"
+                {...register('complete')}
+                disabled={isSubmitting || isLoading}
+              />
+              <Label htmlFor="complete">Finalizado</Label>
+            </Field>
 
-          <label className="label" htmlFor="complete">
-            Finalizado
-          </label>
-        </div>
+            {/* Data */}
+            {complete && (
+              <Field>
+                <FieldLabel htmlFor="completeAt">Data de Finalização</FieldLabel>
 
-        {/* Data */}
-        {complete && (
-          <div className="flex flex-col gap-1.5 mb-4">
-            <label className="label" htmlFor="completeAt">
-              Data de Finalização
-            </label>
+                <Input
+                  type="datetime-local"
+                  {...register('completeAt')}
+                  disabled={isSubmitting || isLoading}
+                />
 
-            <input
-              type="datetime-local"
-              className="input"
-              {...register('completeAt')}
-              disabled={isSubmitting || isLoading}
-            />
-
-            {errors.completeAt?.message ? (
-              <span className="text-xs text-red-500">{errors.completeAt.message}</span>
-            ) : (
-              <span className="text-xs text-[var(--color-muted)]">
-                Data em que o item foi finalizado
-              </span>
+                {errors.completeAt?.message ? (
+                  <FieldError>{errors.completeAt.message}</FieldError>
+                ) : (
+                  <FieldDescription>Data em que o item foi finalizado</FieldDescription>
+                )}
+              </Field>
             )}
-          </div>
-        )}
 
-        {/* Botão */}
-        <button type="submit" className="btn mt-2 w-[120px]" disabled={isSubmitting || isLoading}>
-          Salvar
-        </button>
+            {/* Botão */}
+            <Button type="submit" disabled={isSubmitting || isLoading}>
+              Salvar
+            </Button>
+          </FieldGroup>
+        </FieldSet>
       </form>
     </PageLayout>
   );

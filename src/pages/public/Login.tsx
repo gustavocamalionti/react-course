@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { useAuthContext } from '../../shared/contexts/AuthContext';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 export const Login = () => {
   const { login } = useAuthContext();
@@ -20,11 +23,9 @@ export const Login = () => {
 
         {/* Email */}
         <div className="flex flex-col gap-1.5">
-          <label className="label" htmlFor="email">
-            Email
-          </label>
+          <Label htmlFor="email">Email</Label>
 
-          <input
+          <Input
             id="email"
             className="input"
             type="email"
@@ -36,11 +37,11 @@ export const Login = () => {
 
         {/* Senha */}
         <div className="flex flex-col gap-1.5">
-          <label className="label" htmlFor="password">
+          <Label className="label" htmlFor="password">
             Senha
-          </label>
+          </Label>
 
-          <input
+          <Input
             id="password"
             className="input"
             type="password"
@@ -50,9 +51,7 @@ export const Login = () => {
           />
         </div>
 
-        <button className="btn mt-2" type="submit">
-          Entrar
-        </button>
+        <Button type="submit">Entrar</Button>
       </form>
     </div>
   );
