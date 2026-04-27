@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod/v4';
-import { parseISO, isValid, format } from 'date-fns';
+import { parseISO, isValid } from 'date-fns';
 import { formatInTimeZone, fromZonedTime } from 'date-fns-tz';
 import { TodoAPI, type ITodoWithoutId } from '../../../shared/services/api/TodoAPI';
 import { PageLayout } from '../../../shared/layout/page-layout/PageLayout';
@@ -22,7 +22,7 @@ const todoSchema = z
       .refine((datetimeLocal) => {
         if (!datetimeLocal) return true;
 
-        const parsedDate = parseISO(datetimeLocal, 'yyyy-MM-ddTHH:mm', new Date());
+        const parsedDate = parseISO(datetimeLocal);
         return isValid(parsedDate);
       }, 'A data não está correta')
       .transform((datetimeLocal) => {
@@ -39,7 +39,17 @@ const todoSchema = z
       return true;
     },
     { path: ['completeAt'], error: 'A data precisa ser informada' },
-  );
+  )
+  .transform((data) => {
+    if (!data.complete) {
+      return {
+        ...data,
+        completeAt: undefined,
+      };
+    }
+
+    return data;
+  });
 
 export const TodoDetail = () => {
   const [isLoading, setIsLoading] = useState(false);

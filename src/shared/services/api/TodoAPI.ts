@@ -5,16 +5,16 @@ const axiosInstance = axios.create();
 export interface ITodo {
   id: string;
   label: string;
-  description?: string;
+  description?: string | undefined;
   complete: boolean;
-  completeAt?: string;
+  completeAt?: string | undefined;
 }
 
 export interface ITodoWithoutId {
   label: string;
-  description?: string;
+  description?: string | undefined;
   complete: boolean;
-  completeAt?: string;
+  completeAt?: string | undefined;
 }
 
 export const TodoAPI = {
